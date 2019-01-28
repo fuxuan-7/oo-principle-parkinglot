@@ -24,7 +24,9 @@ public class ParkingLot {
         if (car != null){
             ticket = new Ticket();
             parkedCars.put(ticket, car);
-            residueSpace = space - 1;
+            if (residueSpace > 0) {
+                residueSpace--;
+            }
         }
         return ticket;
     }
@@ -34,7 +36,9 @@ public class ParkingLot {
         if (car == null) {
             throw new ParkingLotGetCarFailedException();
         }
-        residueSpace ++;
+        if (residueSpace < space) {
+            residueSpace ++;
+        }
         return car;
     }
 

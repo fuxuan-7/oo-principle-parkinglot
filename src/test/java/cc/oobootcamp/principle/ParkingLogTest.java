@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -98,13 +99,12 @@ public class ParkingLogTest {
         List<Car> carList = new ArrayList();
         create_three_cars_stop_in_three_parkinglots_scene(parkingLotList, carList);
         ParkingBoy parkingBoy = new GraduateParkingBoy();
-        List<Ticket> ticketsList = parkingBoy.toParkingCar(parkingLotList, carList);
+        List<Ticket> ticketList = parkingBoy.toParkingCar(parkingLotList, carList);
         for (int i = 0; i < 3; i++) {
-            assertThat(parkingLotList.get(i).getResidueSpace()).isEqualTo(9);
-            assertThat(parkingLotList.get(i).getParkedCars().size()).isEqualTo(1);
+            assertThat(parkingLotList.get(i).getResidueSpace()).isEqualTo(8);
+            assertThat(parkingLotList.get(i).getParkedCars().size()).isEqualTo(2);
         }
-        assertThat(ticketsList.size()).isEqualTo(3);
-
+        assertThat(ticketList.size()).isEqualTo(6);
     }
     /**
      * 作为一个初入职场的停车小弟（Graduate Parking Boy），我能够将车按顺序停放到多个停车场，并可以取出
@@ -119,10 +119,11 @@ public class ParkingLogTest {
         create_three_cars_stop_in_three_parkinglots_scene(parkingLotList, carList);
         ParkingBoy parkingBoy = new GraduateParkingBoy();
         List<Ticket> ticketsList = parkingBoy.toParkingCar(parkingLotList, carList);
-        for (int i = 0; i < 3; i++) {
-            assertThat(parkingLotList.get(i).getCar(ticketsList.get(i))).isSameAs(carList.get(i));
+        List<Car> getCarsList = parkingBoy.toGetParkingCar(parkingLotList,ticketsList);
+        assertThat(getCarsList.size()).isEqualTo(6);
+        for (int i = 0; i <getCarsList.size(); i++) {
+            assertThat(getCarsList.get(i)).isSameAs(carList.get(i));
         }
-
     }
 
     /**
@@ -333,9 +334,12 @@ public class ParkingLogTest {
         for (int num = 0; num < 3; num++) {
             ParkingLot parkingLot = new ParkingLot(10);
             parkingLotList.add(parkingLot);
+        }
+        for (int num = 0; num < 6; num++) {
             Car car = new Car();
             carList.add(car);
         }
+
     }
 
 

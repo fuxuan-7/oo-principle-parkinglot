@@ -29,6 +29,8 @@ public class ParkingManager extends ParkingBoy {
         return ticketsList;
     }
 
+
+
     public List<Ticket> toLetParkingBoyToParkingCar(ParkingBoy parkingBoy, List<ParkingLot> parkingLotList, List<Car> carList) {
         return parkingBoy.toParkingCar(parkingLotList,carList);
     }

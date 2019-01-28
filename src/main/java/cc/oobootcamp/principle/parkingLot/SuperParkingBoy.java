@@ -19,4 +19,5 @@ public class SuperParkingBoy extends ParkingBoy {
         }
         return ticketsList;
     }
+
 }
